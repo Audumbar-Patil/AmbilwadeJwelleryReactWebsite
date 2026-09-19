@@ -1,0 +1,11 @@
+/* App-level overrides — all design tokens are in index.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container main {
+  flex: 1;
+}
