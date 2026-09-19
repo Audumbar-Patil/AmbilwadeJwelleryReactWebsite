@@ -5,7 +5,7 @@ function Hero() {
     <section className="hero">
       {/* Background image */}
       <div className="hero-bg">
-        <img src="/hero.png" alt="Ambilwade Jewellers — Gold Bridal Collection" />
+        <img src={`${import.meta.env.BASE_URL}hero.png`} alt="Ambilwade Jewellers — Gold Bridal Collection" />
       </div>
 
       {/* Gradient overlay */}

@@ -4,7 +4,7 @@ function Heritage() {
       <div className="heritage-inner">
         {/* Left — Image */}
         <div className="heritage-visual reveal-left">
-          <img src="/heritage.png" alt="The original Ambilwade goldsmith bench, Solapur 1893" />
+          <img src={`${import.meta.env.BASE_URL}heritage.png`} alt="The original Ambilwade goldsmith bench, Solapur 1893" />
           <div className="heritage-visual-overlay" />
         </div>
 
