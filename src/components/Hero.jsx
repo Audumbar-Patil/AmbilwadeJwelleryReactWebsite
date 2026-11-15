@@ -1,43 +1,53 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { BRAND_INFO } from '../data/jewelleryData';
 
 function Hero() {
   return (
     <section className="hero">
-      {/* Background image */}
+      {/* Background imagery */}
       <div className="hero-bg">
-        <img src={`${import.meta.env.BASE_URL}hero.png`} alt="Ambilwade Jewellers — Gold Bridal Collection" />
+        <img
+          src={`${import.meta.env.BASE_URL}hero.png`}
+          alt="SSA Jewellers — Heirloom Bridal & Gold Jewellery"
+        />
       </div>
 
-      {/* Gradient overlay */}
+      {/* Layered luxury overlay */}
       <div className="hero-overlay" />
 
-      {/* Main content */}
+      {/* Hero content */}
       <div className="hero-content">
-        <span className="hero-eyebrow">Solapur · Established 1893</span>
+        <span className="hero-eyebrow">Parbhani, Maharashtra · Established 1893</span>
 
-        <h1>
-          Heirlooms are not bought.<br />
-          They are <em>begun.</em>
+        <h1 className="hero-heading">
+          Some things are passed down.<br />
+          <em>So is trust.</em>
         </h1>
 
         <p className="hero-desc">
-          Four generations of goldsmiths in Ambilwade, crafting pieces meant
-          to outlive the hands that first wear them.
+          Since 1893, SSA Jewellers has been part of the stories families carry forward.
+          From a grandmother’s cherished possession to a daughter’s first choice, we believe
+          jewellery becomes more meaningful when the trust behind it lasts for generations.
+        </p>
+
+        <p className="hero-subphrase">
+          Rooted in heritage. Thoughtful in design. Guided by trust.
         </p>
 
         <div className="hero-cta">
-          <Link to="/category/women" className="btn btn-gold">
-            Explore Women's
+          <Link to="/story" className="btn btn-gold">
+            Discover Our Story
           </Link>
-          <Link to="/category/men" className="btn btn-outline">
-            Explore Men's
+          <Link to="/category/gold" className="btn btn-outline">
+            Explore Our Jewellery
           </Link>
         </div>
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll indicator */}
       <div className="scroll-hint">
-        <span>Scroll</span>
+        <span>Explore Legacy</span>
         <div className="scroll-line" />
       </div>
 

@@ -1,16 +1,19 @@
+import React from 'react';
+
 const items = [
-  'Handcrafted in Solapur',
-  '22K & 24K Gold',
-  'Est. 1893',
-  'Four Generations',
-  'Bespoke Commissions',
-  'BIS Hallmarked',
-  'Heirloom Quality',
-  'Private Viewings Available',
+  'Station Road, Parbhani',
+  '100% BIS 916 Hallmarked Gold',
+  'Est. 1893 · 133 Years of Trust',
+  'Certified Natural Diamonds',
+  'The Exquisite Collection',
+  'Four Generations of Goldsmiths',
+  'HUID Traceability Guaranteed',
+  'Bespoke Bridal Consultations',
+  'Pure 24K Gold Coins & Bars',
+  'Private Viewing Lounge',
 ];
 
 function Ticker() {
-  // Duplicate for seamless loop
   const all = [...items, ...items];
 
   return (
