@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { CATEGORIES_CONFIG, JEWELLERY_PRODUCTS } from '../data/jewelleryData';
 import ProductCard from '../components/ProductCard';
 import ProductQuickView from '../components/ProductQuickView';
+import WomenJewellerySection from '../components/WomenJewellerySection';
 import { useWishlist } from '../context/WishlistContext';
 
 function CategoryPage() {
@@ -82,90 +83,97 @@ function CategoryPage() {
         </div>
       </section>
 
-      {/* Filter & Controls Bar */}
-      <section className="cat-filter-section">
-        <div className="cat-filter-container">
-          {/* Subcategories Horizontal Scroll */}
-          <div className="subcat-scroll-track">
-            {config.subcategories.map((sub) => (
-              <button
-                key={sub}
-                className={`subcat-pill ${activeSubcat === sub ? 'active' : ''}`}
-                onClick={() => setActiveSubcat(sub)}
-              >
-                {sub}
-              </button>
-            ))}
-          </div>
+      {/* For Women's Jewellery: Display the rich heading sections and 285 pieces */}
+      {catKey === 'women' ? (
+        <WomenJewellerySection onQuickView={(p) => setQuickViewProduct(p)} />
+      ) : (
+        <>
+          {/* Filter & Controls Bar */}
+          <section className="cat-filter-section">
+            <div className="cat-filter-container">
+              {/* Subcategories Horizontal Scroll */}
+              <div className="subcat-scroll-track">
+                {config.subcategories.map((sub) => (
+                  <button
+                    key={sub}
+                    className={`subcat-pill ${activeSubcat === sub ? 'active' : ''}`}
+                    onClick={() => setActiveSubcat(sub)}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </div>
 
-          {/* Secondary Controls (Purity & Sorting) */}
-          <div className="cat-filter-controls">
-            <div className="filter-group">
-              <label htmlFor="purity-select">Purity:</label>
-              <select
-                id="purity-select"
-                value={selectedPurity}
-                onChange={(e) => setSelectedPurity(e.target.value)}
-                className="luxury-select"
-              >
-                <option value="All">All Purities</option>
-                <option value="22K">22K Gold (BIS 916)</option>
-                <option value="24K">24K Pure Gold (999)</option>
-                <option value="18K">18K Gold (BIS 750)</option>
-              </select>
-            </div>
+              {/* Secondary Controls (Purity & Sorting) */}
+              <div className="cat-filter-controls">
+                <div className="filter-group">
+                  <label htmlFor="purity-select">Purity:</label>
+                  <select
+                    id="purity-select"
+                    value={selectedPurity}
+                    onChange={(e) => setSelectedPurity(e.target.value)}
+                    className="luxury-select"
+                  >
+                    <option value="All">All Purities</option>
+                    <option value="22K">22K Gold (BIS 916)</option>
+                    <option value="24K">24K Pure Gold (999)</option>
+                    <option value="18K">18K Gold (BIS 750)</option>
+                  </select>
+                </div>
 
-            <div className="filter-group">
-              <label htmlFor="sort-select">Sort By:</label>
-              <select
-                id="sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="luxury-select"
-              >
-                <option value="featured">Featured Curations</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-              </select>
+                <div className="filter-group">
+                  <label htmlFor="sort-select">Sort By:</label>
+                  <select
+                    id="sort-select"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="luxury-select"
+                  >
+                    <option value="featured">Featured Curations</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Products Grid */}
-      <section className="cat-products-section">
-        <div className="cat-grid-container">
-          <div className="products-count-header">
-            <span>Showing {filteredProducts.length} jewellery creation{filteredProducts.length === 1 ? '' : 's'}</span>
-            <span className="guarantee-note">✦ BIS Hallmarked &amp; 100% Certified Authentic</span>
-          </div>
+          {/* Products Grid */}
+          <section className="cat-products-section">
+            <div className="cat-grid-container">
+              <div className="products-count-header">
+                <span>Showing {filteredProducts.length} jewellery creation{filteredProducts.length === 1 ? '' : 's'}</span>
+                <span className="guarantee-note">✦ BIS Hallmarked &amp; 100% Certified Authentic</span>
+              </div>
 
-          {filteredProducts.length > 0 ? (
-            <div className="luxury-products-grid">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onQuickView={(p) => setQuickViewProduct(p)}
-                />
-              ))}
+              {filteredProducts.length > 0 ? (
+                <div className="luxury-products-grid">
+                  {filteredProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onQuickView={(p) => setQuickViewProduct(p)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="cat-no-products">
+                  <p>No pieces currently match your selected filter.</p>
+                  <button
+                    className="btn btn-gold"
+                    onClick={() => {
+                      setActiveSubcat('All');
+                      setSelectedPurity('All');
+                    }}
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="cat-no-products">
-              <p>No pieces currently match your selected filter.</p>
-              <button
-                className="btn btn-gold"
-                onClick={() => {
-                  setActiveSubcat('All');
-                  setSelectedPurity('All');
-                }}
-              >
-                Reset Filters
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
+          </section>
+        </>
+      )}
 
       {/* Editorial Storytelling Section from jewellers.md for specific categories */}
       {catKey === 'gold' && (
