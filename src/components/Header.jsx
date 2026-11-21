@@ -65,7 +65,7 @@ function Header() {
 
           {/* Center Brand Identity */}
           <Link to="/" className="luxury-brand-center">
-            <span className="brand-crest">⚜</span>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="SSA Jewellers Logo" className="brand-logo" />
             <span className="brand-title">SACHIN SUDHAKAR AMBILWADE</span>
             <span className="brand-subtitle">SSA JEWELLERS · PARBHANI · EST. 1893</span>
           </Link>
@@ -96,35 +96,66 @@ function Header() {
                 Our Story
               </Link>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/gold" className={location.pathname === '/category/gold' ? 'active' : ''}>
                 Gold
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/gold" className="nav-dropdown-item">Traditional</Link></li>
+                <li><Link to="/category/gold" className="nav-dropdown-item">Contemporary</Link></li>
+                <li><Link to="/category/gold" className="nav-dropdown-item">Investment</Link></li>
+              </ul>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/diamond" className={location.pathname === '/category/diamond' ? 'active' : ''}>
                 Diamond
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/diamond" className="nav-dropdown-item">Solitaires</Link></li>
+                <li><Link to="/category/diamond" className="nav-dropdown-item">Diamond Sets</Link></li>
+                <li><Link to="/category/diamond" className="nav-dropdown-item">Earrings</Link></li>
+              </ul>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/bridal" className={location.pathname === '/category/bridal' ? 'active' : ''}>
                 Bridal
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/bridal" className="nav-dropdown-item">Bridal Sets</Link></li>
+                <li><Link to="/category/bridal" className="nav-dropdown-item">Mangalsutra</Link></li>
+                <li><Link to="/category/bridal" className="nav-dropdown-item">Nath</Link></li>
+              </ul>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/women" className={location.pathname === '/category/women' ? 'active' : ''}>
                 Women
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/women" className="nav-dropdown-item">Necklaces</Link></li>
+                <li><Link to="/category/women" className="nav-dropdown-item">Earrings</Link></li>
+                <li><Link to="/category/women" className="nav-dropdown-item">Bangles</Link></li>
+                <li><Link to="/category/women" className="nav-dropdown-item">Rings</Link></li>
+              </ul>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/men" className={location.pathname === '/category/men' ? 'active' : ''}>
                 Men
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/men" className="nav-dropdown-item">Chains</Link></li>
+                <li><Link to="/category/men" className="nav-dropdown-item">Kadas</Link></li>
+                <li><Link to="/category/men" className="nav-dropdown-item">Rings</Link></li>
+              </ul>
             </li>
-            <li>
+            <li className="nav-item-has-dropdown">
               <Link to="/category/children" className={location.pathname === '/category/children' ? 'active' : ''}>
                 Children
               </Link>
+              <ul className="nav-dropdown">
+                <li><Link to="/category/children" className="nav-dropdown-item">Earrings</Link></li>
+                <li><Link to="/category/children" className="nav-dropdown-item">Bangles</Link></li>
+                <li><Link to="/category/children" className="nav-dropdown-item">Chains</Link></li>
+              </ul>
             </li>
             <li className="nav-item-exquisite">
               <Link

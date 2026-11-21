@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import Hero from '../components/Hero';
 import Ticker from '../components/Ticker';
 import LegacySection from '../components/LegacySection';
+import PoemVideoSection from '../components/PoemVideoSection';
 import GenerationsSection from '../components/GenerationsSection';
 import ApproachSection from '../components/ApproachSection';
 import ExploreGrid from '../components/ExploreGrid';
 import ExquisiteSpotlight from '../components/ExquisiteSpotlight';
-import DetailsSection from '../components/DetailsSection';
 import RelationshipSection from '../components/RelationshipSection';
-import VisitSection from '../components/VisitSection';
 
 function Home() {
   useEffect(() => {
@@ -42,6 +41,9 @@ function Home() {
       {/* 01. HOMEPAGE — Section 2: A Legacy That Lives On */}
       <LegacySection />
 
+      {/* Poem + Video — Our Story */}
+      <PoemVideoSection />
+
       {/* 01. HOMEPAGE — Section 3: Jewellery for Every Generation */}
       <GenerationsSection />
 
@@ -54,14 +56,8 @@ function Home() {
       {/* 01. HOMEPAGE — Section 6: The Exquisite Collection */}
       <ExquisiteSpotlight />
 
-      {/* 01. HOMEPAGE — Section 7: The Details Behind the Beauty */}
-      <DetailsSection />
-
       {/* 01. HOMEPAGE — Section 8: A Relationship Across Generations */}
       <RelationshipSection />
-
-      {/* 01. HOMEPAGE — Section 9: Visit SSA Jewellers */}
-      <VisitSection />
     </main>
   );
 }

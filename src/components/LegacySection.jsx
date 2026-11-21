@@ -1,56 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function LegacySection() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <section className="legacy-section" id="legacy">
       <div className="legacy-inner">
         <div className="legacy-visual reveal-left">
           <div className="legacy-img-frame">
-            <img
-              src={`${import.meta.env.BASE_URL}heritage.png`}
-              alt="Archival goldsmith bench and preserved instruments from 1893"
-            />
-            <div className="legacy-caption-pill">
-              <span>Archival Bench &amp; Historical Ledger · Est. 1893</span>
-            </div>
+            <img src={`${import.meta.env.BASE_URL}heritage.png`} alt="Archival goldsmith bench from 1893" />
+            <div className="legacy-caption-pill"><span>Archival Bench · Est. 1893</span></div>
           </div>
         </div>
-
         <div className="legacy-copy reveal-right">
           <div className="section-eyebrow">A Legacy That Lives On</div>
-          <h2 className="legacy-title">Since 1893, and still becoming.</h2>
+          <h2 className="legacy-title">Since 1893. Still becoming.</h2>
+          <div className="ornament-line"><div className="ornament-diamond" /></div>
+          <p className="legacy-p1">Four generations. Changing tastes. One constant: relationships built on honesty.</p>
+          <p>We bring the knowledge of our past to jewellery designed for the way people live today.</p>
 
-          <div className="ornament-line">
-            <div className="ornament-diamond" />
-          </div>
+          {/* Expandable section */}
+          {expanded && (
+            <p>A legacy isn't just what we inherit. It's what we choose to carry forward.</p>
+          )}
 
-          <p className="legacy-p1">Every generation leaves something behind.</p>
-          <p>
-            Sometimes, it is a piece of jewellery. Sometimes, it is a tradition. And sometimes,
-            it is the name of someone a family has trusted for as long as it can remember.
-          </p>
-          <p>
-            SSA Jewellers began its journey in 1893. Through changing times, evolving tastes, and
-            generations of customers, the belief at its heart has remained the same:{' '}
-            <em>every relationship deserves to be built on honesty.</em>
-          </p>
-          <p>
-            Today, we bring together the knowledge inherited from the past and a contemporary
-            understanding of design. We honour the traditions that shaped us while continuing to
-            discover new ways of expressing them.
-          </p>
-
-          <blockquote className="legacy-quote">
-            "Because a legacy is not simply something we inherit.
-            <br />
-            <strong>It is something we choose to carry forward.</strong>"
-          </blockquote>
+          <button className="read-more-btn" onClick={() => setExpanded(!expanded)}>
+            {expanded ? 'Read Less' : 'Read More'}
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <polyline points={expanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'} />
+            </svg>
+          </button>
 
           <div className="legacy-action">
-            <Link to="/story" className="btn btn-gold">
-              The Story of SSA
-            </Link>
+            <Link to="/story" className="btn btn-gold">The Story of SSA</Link>
           </div>
         </div>
       </div>

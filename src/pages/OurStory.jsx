@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BRAND_INFO } from '../data/jewelleryData';
+import PoemVideoSection from '../components/PoemVideoSection';
 
 function OurStory() {
   useEffect(() => {
@@ -217,8 +218,7 @@ function OurStory() {
       </section>
 
       {/* Chapter 4 & 5: Trust Across Generations & Continuing Story */}
-      <section className="story-chapter dark-tint">
-        <div className="story-final-block">
+      <section className="story-chapter dark-tint">        <div className="story-final-block">
           <div className="section-eyebrow light">Generational Trust</div>
           <h2 className="story-final-heading light">
             Trust, Passed From One Generation to the Next
@@ -269,6 +269,9 @@ function OurStory() {
           </div>
         </div>
       </section>
+
+      {/* Poem + Video Section */}
+      <PoemVideoSection />
     </div>
   );
 }
