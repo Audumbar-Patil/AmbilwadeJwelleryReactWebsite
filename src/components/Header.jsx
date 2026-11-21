@@ -6,6 +6,7 @@ import { BRAND_INFO } from '../data/jewelleryData';
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navDropdownOpen, setNavDropdownOpen] = useState(false);
   const location = useLocation();
   const { wishlist, setIsWishlistOpen, setIsSearchOpen } = useWishlist();
 
@@ -15,11 +16,23 @@ function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile drawer on route change
+  // Close menus on route change
   useEffect(() => {
     setMenuOpen(false);
+    setNavDropdownOpen(false);
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.header-menu-container')) {
+        setNavDropdownOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -65,16 +78,106 @@ function Header() {
 
           {/* Center Brand Identity */}
           <Link to="/" className="luxury-brand-center">
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="SSA Jewellers Logo" className="brand-logo" />
+            <img src={`${import.meta.env.BASE_URL}logo-single.png`} alt="SSA Jewellers Logo" className="brand-logo" />
             <span className="brand-title">SACHIN SUDHAKAR AMBILWADE</span>
             <span className="brand-subtitle">SSA JEWELLERS · PARBHANI · EST. 1893</span>
           </Link>
 
-          {/* Right Actions — Plan Visit & Hamburger */}
+          {/* Right Actions — Plan Visit, All Options Menu Dropdown & Mobile Hamburger */}
           <div className="nav-action-right">
             <Link to="/contact" className="btn-appointment-header">
               Plan Your Visit
             </Link>
+
+            {/* Desktop / Global Dropdown Menu for All Options */}
+            <div className="header-menu-container">
+              <button
+                className={`btn-menu-dropdown-trigger ${navDropdownOpen ? 'active' : ''}`}
+                onClick={() => setNavDropdownOpen(!navDropdownOpen)}
+                aria-label="Toggle explore navigation dropdown"
+                aria-expanded={navDropdownOpen}
+              >
+                <span>Menu</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  style={{ transform: navDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s' }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              {navDropdownOpen && (
+                <div className="header-all-dropdown-menu">
+                  <div className="all-dropdown-header">
+                    <span className="all-dropdown-eyebrow">Discover SSA Jewellers</span>
+                    <button
+                      className="all-dropdown-close"
+                      onClick={() => setNavDropdownOpen(false)}
+                      aria-label="Close menu"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div className="all-dropdown-columns">
+                    <div className="all-dropdown-col">
+                      <span className="all-dropdown-group-title">Heritage & Stories</span>
+                      <Link to="/story" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Our Story (1893)
+                      </Link>
+                      <Link to="/education" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Jewellery Education
+                      </Link>
+                      <Link to="/contact" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Contact &amp; Flagship
+                      </Link>
+                    </div>
+
+                    <div className="all-dropdown-col">
+                      <span className="all-dropdown-group-title">Precious Metals & Gems</span>
+                      <Link to="/category/gold" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Gold Jewellery
+                      </Link>
+                      <Link to="/category/diamond" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Diamond Jewellery
+                      </Link>
+                      <Link to="/category/bridal" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Bridal Trousseau
+                      </Link>
+                      <Link to="/category/exquisite" className="all-dropdown-link emerald-highlight" onClick={() => setNavDropdownOpen(false)}>
+                        ✦ The Exquisite Collection
+                      </Link>
+                    </div>
+
+                    <div className="all-dropdown-col">
+                      <span className="all-dropdown-group-title">Wearers & Gifting</span>
+                      <Link to="/category/women" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Women’s Jewellery
+                      </Link>
+                      <Link to="/category/men" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Men’s Jewellery
+                      </Link>
+                      <Link to="/category/children" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Children’s Jewellery
+                      </Link>
+                      <Link to="/category/gifting" className="all-dropdown-link" onClick={() => setNavDropdownOpen(false)}>
+                        Gifting &amp; Gold Coins
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="all-dropdown-footer">
+                    <span>Parbhani · Maharashtra · Est. 1893</span>
+                    <Link to="/contact" className="all-dropdown-appointment" onClick={() => setNavDropdownOpen(false)}>
+                      Book Private Appointment →
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               className={`nav-toggle ${menuOpen ? 'open' : ''}`}
@@ -87,102 +190,6 @@ function Header() {
             </button>
           </div>
         </div>
-
-        {/* Secondary Editorial Category Navigation */}
-        <nav className="header-secondary-row">
-          <ul className="luxury-nav-list">
-            <li>
-              <Link to="/story" className={location.pathname === '/story' ? 'active' : ''}>
-                Our Story
-              </Link>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/gold" className={location.pathname === '/category/gold' ? 'active' : ''}>
-                Gold
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/gold" className="nav-dropdown-item">Traditional</Link></li>
-                <li><Link to="/category/gold" className="nav-dropdown-item">Contemporary</Link></li>
-                <li><Link to="/category/gold" className="nav-dropdown-item">Investment</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/diamond" className={location.pathname === '/category/diamond' ? 'active' : ''}>
-                Diamond
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/diamond" className="nav-dropdown-item">Solitaires</Link></li>
-                <li><Link to="/category/diamond" className="nav-dropdown-item">Diamond Sets</Link></li>
-                <li><Link to="/category/diamond" className="nav-dropdown-item">Earrings</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/bridal" className={location.pathname === '/category/bridal' ? 'active' : ''}>
-                Bridal
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/bridal" className="nav-dropdown-item">Bridal Sets</Link></li>
-                <li><Link to="/category/bridal" className="nav-dropdown-item">Mangalsutra</Link></li>
-                <li><Link to="/category/bridal" className="nav-dropdown-item">Nath</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/women" className={location.pathname === '/category/women' ? 'active' : ''}>
-                Women
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/women" className="nav-dropdown-item">Necklaces</Link></li>
-                <li><Link to="/category/women" className="nav-dropdown-item">Earrings</Link></li>
-                <li><Link to="/category/women" className="nav-dropdown-item">Bangles</Link></li>
-                <li><Link to="/category/women" className="nav-dropdown-item">Rings</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/men" className={location.pathname === '/category/men' ? 'active' : ''}>
-                Men
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/men" className="nav-dropdown-item">Chains</Link></li>
-                <li><Link to="/category/men" className="nav-dropdown-item">Kadas</Link></li>
-                <li><Link to="/category/men" className="nav-dropdown-item">Rings</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-has-dropdown">
-              <Link to="/category/children" className={location.pathname === '/category/children' ? 'active' : ''}>
-                Children
-              </Link>
-              <ul className="nav-dropdown">
-                <li><Link to="/category/children" className="nav-dropdown-item">Earrings</Link></li>
-                <li><Link to="/category/children" className="nav-dropdown-item">Bangles</Link></li>
-                <li><Link to="/category/children" className="nav-dropdown-item">Chains</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item-exquisite">
-              <Link
-                to="/category/exquisite"
-                className={location.pathname === '/category/exquisite' ? 'active' : ''}
-              >
-                <span className="emerald-gem-dot" />
-                The Exquisite Collection
-              </Link>
-            </li>
-            <li>
-              <Link to="/category/gifting" className={location.pathname === '/category/gifting' ? 'active' : ''}>
-                Gifting
-              </Link>
-            </li>
-            <li>
-              <Link to="/education" className={location.pathname === '/education' ? 'active' : ''}>
-                Jewellery Education
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
-                Contact Us
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </header>
 
       {/* Mobile Luxury Drawer */}
